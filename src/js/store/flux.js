@@ -1,43 +1,66 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			people: [],
+			vehicles: [],
+			planets: [],
+			favorites: [],
+			apiUrl: "https://swapi.dev/api/",
+			apiUrl2: "https://www.swapi.tech/api/"
+
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
-			changeColor: (index, color) => {
-				//get the store
+			getPeople: async () => {
 				const store = getStore();
+				try {
+					const response = await fetch(store.apiUrl + "people");
+					const data = await response.json();
+					setStore({
+						people: data.results
+					});
+				} catch (error) {
+					console.log(error);
+				}
+			},
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
+			getVehicles: async () => {
+				const store = getStore();
+				try {
+					const response = await fetch(store.apiUrl + "vehicles");
+					const data = await response.json();
+					setStore({
+						vehicles: data.results
+					});
+				} catch (error) {
+					console.log(error);
+				}
+			},
 
-				//reset the global store
-				setStore({ demo: demo });
-			}
+			getPlanets: async () => {
+				const store = getStore();
+				try {
+					const response = await fetch(store.apiUrl + "planets");
+					const data = await response.json();
+					setStore({
+						planets: data.results
+					});
+				} catch (error) {
+					console.log(error);
+				}
+			},
+			addFavorites(nombreItem, type) {
+				const store = getStore();
+				const fav = store.favorites;
+				const newFav = [...fav, { name: nombreItem, id: fav.length, type }]
+				setStore({ favorites: newFav })
+			},
+			deleteFavorites(id) {
+				const store = getStore();
+				const fav = store.favorites;
+				const favActualizado = fav.filter((item) => item.id !== id);
+				setStore({ favorites: favActualizado })
+			},
 		}
 	};
 };

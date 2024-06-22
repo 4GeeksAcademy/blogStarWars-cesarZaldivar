@@ -1,3 +1,17 @@
 /* 
     General Styles
 */
+.background-card{
+    background-image: url("https://m.media-amazon.com/images/I/6127qsu+YbL._AC_UF894,1000_QL80_.jpg");
+    background-size: cover;
+}
+
+.background-div{
+    background-image: url("https://articles-images.sftcdn.net/wp-content/uploads/sites/2/2019/08/star-wars-the-rise-of-skywalker-1200x675.jpg");
+    background-size: cover;
+}
+ .background-footer{
+    background-image: url("https://wallpaperaccess.com/full/376630.jpg");
+    background-size: cover;
+ }
+
